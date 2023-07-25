@@ -13,7 +13,7 @@ class get_data():
         """
         self.credentials = credentials
     
-    def save_data(self, query, get_column_names=False, table_name=None):
+    def save_raw_data(self, query, get_column_names=False, table_name=None):
             cnx = self.get_connection()
 
             # Create a cursor object to interact with the database
@@ -116,4 +116,4 @@ if __name__ == "__main__":
     get_column_names=False
     table_name = None
     data = get_data(database=database)
-    data.save_data(credentials=credentials, query=query, get_column_names=get_column_names, table_name=table_name)
+    data.save_raw_data(credentials=credentials, query=query, get_column_names=get_column_names, table_name=table_name)

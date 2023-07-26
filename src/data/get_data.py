@@ -43,7 +43,7 @@ class get_data():
             if table_name == None:
                 table_name = 'table'
 
-            df.to_csv(fr'data\raw\{table_name}.csv', index_label='ID')
+            df.to_csv(fr'data\raw\{table_name}.csv', index=False)
 
             # Close the cursor and connection
             cursor.close()

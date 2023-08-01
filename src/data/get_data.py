@@ -13,7 +13,7 @@ class get_data():
         """
         self.credentials = credentials
     
-    def save_data(self, query, get_column_names=False, table_name=None):
+    def save_raw_data(self, query, get_column_names=False, table_name=None):
             cnx = self.get_connection()
 
             # Create a cursor object to interact with the database

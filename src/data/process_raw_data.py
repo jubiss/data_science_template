@@ -3,28 +3,25 @@ sys.path.append(os.getcwd())
 import pandas as pd
 from src.utils import utils
 
-def process_raw_intern_data(save=False, file_name='intern_table'):
-    table_path = r'data\raw\simulated_listings1.csv'
-    internal_processed_table = pd.read_csv(table_path)
+def process_data(table_path, save=False, file_name='processed_table'):
+    processed_table = pd.read_csv(table_path)
     if save:
-        utils.save_csv(internal_processed_table, filepath_name=f'data/processed/{file_name}.csv', save=save)
-    return internal_processed_table
+        utils.save_csv(processed_table, filepath_name=f'data/processed/{file_name}.csv', save=save)
+    return processed_table
 
-def process_raw_extern_data(save=False, file_name='intern_table'):
-    table_path = r'data\external\enderecos_problema.csv'
-    internal_processed_table = pd.read_csv(table_path)
-    if save:
-        utils.save_csv(internal_processed_table, filepath_name=f'data/processed/{file_name}.csv', save=save)
-    return internal_processed_table
+def merge_internal_external_data(data_list, save=False, file_name='final_table'):
 
-def merge_internal_external_data(intern_data, external_data, save=False, file_name='final_table'):
-
-    int_ext_data = intern_data.merge(external_data, on=['latitude', 'longitude'], how='left')
+    intern_data = data_list[0]
+    extern_data = data_list[1]
+    int_ext_data = intern_data.merge(extern_data, on=['latitude', 'longitude'], how='left')
     if save:
         utils.save_csv(int_ext_data, filepath_name=f'data/processed/{file_name}.csv', save=save)
     return int_ext_data
 
 if __name__ == '__main__':
-    intern_data = process_raw_intern_data(save=False, file_name='internal_table')
-    external_data = process_raw_extern_data(save=False, file_name='external_table')
-    merge_internal_external_data(intern_data, external_data, save=True, file_name='listings_with_address')
+    path_intern = r'data/raw/filename_intern.csv'
+    path_extern = r'data/raw/filename_extern.csv'
+    intern_data = process_data(table_path=path_intern,save=False, file_name='internal_table')
+    extern_data = process_data(table_path=path_extern,save=False, file_name='external_table')
+    data_list = [intern_data, extern_data]
+    merge_internal_external_data(data_list, save=True, file_name='listings_with_address')

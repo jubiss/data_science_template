@@ -1,4 +1,14 @@
 import numpy as np
+def DummyRegressor():
+    from sklearn.dummy import DummyRegressor
+
+    model = DummyRegressor(quantile=0.5)
+
+    model_param_grid = {
+        'model__strategy': ['mean','quantile'],
+    }
+    return model, model_param_grid
+
 def SGDRegressor():
     from sklearn.linear_model import SGDRegressor
 
@@ -19,5 +29,14 @@ def LinearRegression():
 
     model_param_grid = {
     }
+
+    return model, model_param_grid
+
+def get_model(model_name):
+    models = {'LinearRegression': LinearRegression,
+              'SGDRegressor': SGDRegressor,
+              'DummyRegressor': DummyRegressor}
+    
+    model, model_param_grid = models[model_name]()
 
     return model, model_param_grid

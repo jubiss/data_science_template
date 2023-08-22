@@ -6,23 +6,25 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
 def features_pipeline():
-    numeric_column = ''
-    category_column = ''
     enc = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
     transform_categorical = ColumnTransformer(
         transformers=[
-            ('OneHotEncoder', enc, [category_column]),
+            ('OneHotEncoder', enc, ['bairro']),
         ],
         remainder='passthrough'  # This will include all the other columns in the output
     )
 
-    pipeline = [('clipping_numeric', pp.ClippingColumn(column=numeric_column, quantile=0.95)),
-                ('other_category_column', pp.OthersCategoryTransformer(column=category_column, low_threshold=0.01)),
-                ('OneHotEncoding', transform_categorical)
+    pipeline = [('clipping_rooms', pp.ClippingColumn(column='rooms', quantile=0.95)),
+                            ('clipping_garages', pp.ClippingColumn(column='garages', quantile=0.95)),
+                            ('clipping_useful_area', pp.ClippingColumn(column='useful_area', quantile=0.95)),
+                            ('other_category_bairro', pp.OthersCategoryTransformer(column='bairro', low_threshold=0.01)),
+                            ('OneHotEncoding', transform_categorical)
                             ]
     grid_search = {
-        'clipping_numeric__quantile': [None, 0.95, 0.9],
-        'other_category_column__low_threshold': [None, 0.01, 0.05]
+        'clipping_rooms__quantile': [None, 0.95, 0.9],
+        'clipping_garages__quantile': [None, 0.95, 0.9],
+        'clipping_useful_area__quantile': [None, 0.95, 0.9],
+        'other_category_bairro__low_threshold': [None, 0.01, 0.05]
     }
     return pipeline, grid_search
 

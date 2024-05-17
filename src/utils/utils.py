@@ -11,6 +11,11 @@ def save_csv(dataframe, filepath_name, save=False):
         else:
             dataframe.to_csv(filepath_name, index=False)
 
+def read_sql_file(sql_path):
+    with open(sql_path, 'r') as sql_file:
+        query = sql_file.read()
+    return query
+
 def append_column_names(dataframe, sufix_text=None, prefix_text=None):
     columns = []
     for column in dataframe.columns:

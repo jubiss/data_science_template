@@ -1,5 +1,7 @@
 import pandas as pd
 
+
+
 class get_sql_data():
     """"
     Class constructor to retrieve data from SQL Databases and saves in the raw data folders.
@@ -103,8 +105,8 @@ class get_sql_data():
         else:
             columns = [column[0].strip() for column in cursor.fetchall()]
         return columns
+        
 
-    
 if __name__ == "__main__":
     database = 'mysql'
     credentials = {'database': 'mysql',

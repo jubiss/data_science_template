@@ -5,7 +5,7 @@ def OneHotEncoderTransformerSelectedColumns(categorical_features):
     from sklearn.preprocessing import OneHotEncoder, FunctionTransformer
     from sklearn.compose import ColumnTransformer
     enc = OneHotEncoder(handle_unknown='ignore')
-    categorical_features = ['UF']
+    categorical_features = categorical_features
 
     transform_categorical = ColumnTransformer(
         transformers=[

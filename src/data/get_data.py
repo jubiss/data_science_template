@@ -1,6 +1,6 @@
 import pandas as pd
 
-class get_data():
+class get_sql_data():
     """"
     Class constructor to retrieve data from SQL Databases and saves in the raw data folders.
     """
